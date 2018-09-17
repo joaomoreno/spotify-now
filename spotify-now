@@ -130,18 +130,20 @@ else
 	elif [[ "$INFO" != "" ]]; then
    		# get mpris2 dbus status of spotify player
    		META=`dbus-send --print-reply --session --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:'org.mpris.MediaPlayer2.Player' string:'Metadata'`
-   		INFO="${INFO//"%album"/$(album)}"
-   		INFO="${INFO//"%artist"/$(artist)}"
-   		INFO="${INFO//"%disc"/$(disc)}"
-   		INFO="${INFO//"%title"/$(title)}"
-   		INFO="${INFO//"%track"/$(track)}"
-		if [ "$ESCAPE" = true ]; then
-			INFO="${INFO//&/&amp;}"
-			INFO="${INFO//</&lt;}"
-			INFO="${INFO//>/&gt;}"	
-			INFO="${INFO//\"/&quot;}"
-			INFO="${INFO//\\/\\\\}"
+		if [[ "$META" != "" ]]; then
+			INFO="${INFO//"%album"/$(album)}"
+			INFO="${INFO//"%artist"/$(artist)}"
+			INFO="${INFO//"%disc"/$(disc)}"
+			INFO="${INFO//"%title"/$(title)}"
+			INFO="${INFO//"%track"/$(track)}"
+			if [ "$ESCAPE" = true ]; then
+				INFO="${INFO//&/&amp;}"
+				INFO="${INFO//</&lt;}"
+				INFO="${INFO//>/&gt;}"	
+				INFO="${INFO//\"/&quot;}"
+				INFO="${INFO//\\/\\\\}"
+			fi
+			echo $INFO
 		fi
-		echo $INFO
 	fi
 fi
